@@ -1,0 +1,14 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Root>
+  <ConnectionString>Data Source=AGA-KOMPUTER\SQLEXPRESS;Initial Catalog=RecruitmentManager;Persist Security Info=True;User ID=sa;Password=Test2010</ConnectionString>
+  <Authentication>
+    <Google>
+      <ClientId></ClientId>
+      <ClientSecret></ClientSecret>
+    </Google>
+    <LinkedIn>
+      <ClientId></ClientId>
+      <ClientSecret></ClientSecret>
+    </LinkedIn>
+  </Authentication>
+</Root>

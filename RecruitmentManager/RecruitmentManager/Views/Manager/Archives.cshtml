@@ -1,0 +1,57 @@
+﻿@using Microsoft.CodeAnalysis.Semantics
+@using RecruitmentManager.UtilityClasses
+@model IEnumerable<RecrutationModel>
+@inject UtilDate utilDate
+
+@if (Model.Any())
+{
+    <h3>Oferty zarchiwizowane</h3>
+
+    <div class="row" style="box-shadow: 3px 3px 5px 5px #CFCFCF;">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Stanowisko</th>
+                    <th>Firma</th>
+                    <th>Status</th>
+                    <th>Data</th>
+                    <th>Notatki</th>
+                    <th></th>
+                </tr>
+            </thead>
+
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td><a asp-controller="Manager" asp-action="ViewOffer" asp-route-id="@item.ID">@item.JobTitle</a></td>
+                    <td>@item.Company</td>
+                    <td id="td_status">@item.Status</td>
+                    <td>@utilDate.GetFormattedDate(item.ApplicationDate)</td>
+                    <td>
+                        (@item.Notes.Count)
+                        @if (item.Notes.Count > 0)
+                        {
+                            <span id="@item.ID" class="glyphicon glyphicon-chevron-right"></span>
+                        }
+                    </td>
+                    <td><a asp-controller="Manager" asp-action="FromArchiveToManager" asp-route-id="@item.ID">Przywóć</a> | <a asp-controller="Manager" asp-action="DeleteOffer" asp-route-id="@item.ID"><span class="glyphicon glyphicon-trash" title="Usuń ofertę (Uwaga: nieodwracalne)"></span></a> </td>
+                </tr>
+                foreach (var n in item.Notes)
+                {
+                    <tr id="notes_@item.ID" class="hide">
+                        <td colspan="6">@utilDate.GetFormattedDate(n.CreatedDate) | @n.Text</td>
+                    </tr>
+                }
+            }
+
+        </table>
+    </div>
+}
+else
+{
+    <p>
+        <h3>Nie masz żadnych zarchiwizowanych ofert.</h3>
+    </p>
+}
+
+<script type="text/javascript" src="~/js/ManagerIndex.js"></script>

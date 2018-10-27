@@ -1,0 +1,93 @@
+﻿@using Microsoft.CodeAnalysis.Semantics
+@using RecruitmentManager.UtilityClasses
+@model IEnumerable<RecrutationModel>
+@inject UtilDate utilDate
+
+<!-------------------------- Tabelka ------------------------------>
+
+@if (Model.Any())
+{
+
+    <div class="row" style="box-shadow: 3px 3px 5px 5px #CFCFCF;">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th></th>
+                    <th>Stanowisko</th>
+                    <th>Firma</th>
+                    <th><select id="status_select" asp-items="@ViewBag.Stat" class="dropdown-toggle form-control"></select></th>
+                    <th>Data</th>
+                    <th>Notatki</th>
+                    <th>Opcje</th>
+                </tr>
+            </thead>
+
+            @{
+                ViewBag.Stat.RemoveAt(0);
+            }
+
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td><a asp-controller="Manager" asp-action="Edit" asp-route-id="@item.ID"><span class="glyphicon glyphicon-edit" title="Edytuj"></span></a> </td>
+                    <td><a asp-controller="Manager" asp-action="ViewOffer" asp-route-id="@item.ID">@item.JobTitle</a></td>
+                    <td>@item.Company</td>
+                    <td id="td_status">@item.Status</td>
+                    <td>@utilDate.GetFormattedDate(item.ApplicationDate) (@Math.Floor(DateTime.Now.Subtract(item.ApplicationDate).TotalDays))</td>
+                    <td>
+                        (@item.Notes.Count)
+                        @if (item.Notes.Count > 0)
+                        {
+                            <span id="@item.ID" class="glyphicon glyphicon-chevron-right" title="Pokaż / ukryj notatki"></span>
+                        }
+                        <span id="@item.ID" class="glyphicon glyphicon-plus" title="Dodaj notatkę"></span>
+                    </td>
+                    <td>
+                        <span id="@item.ID" class="glyphicon glyphicon-asterisk" title="Zmień status"></span>
+                        <a asp-controller="Manager" asp-action="AddToArchive" asp-route-id="@item.ID"><span class="glyphicon glyphicon-file" title="Archiwizuj"></span></a>
+                    </td>
+                </tr>
+                foreach (var n in item.Notes)
+                {
+                    <tr id="notes_@item.ID" class="hide">
+                        <td colspan="8" style="border-top: none">(<a asp-controller="Manager" asp-action="RemoveNote" asp-route-id="@n.ID"><span style="color: red" class="glyphicon glyphicon-minus" title="Usuń notatkę"></span></a>) <strong>@utilDate.GetFormattedDate(n.CreatedDate)</strong> @n.Text</td>
+                    </tr>
+                }
+
+                <tr id="addnote_@item.ID" class="hide">
+                    <td colspan="8" style="border-top: none">
+                        <form asp-controller="Manager" asp-action="AddNote" asp-route-id="@item.ID" class="form-inline">
+                            <div class="input-group">
+                                <input type="text" name="text" class="form-control" placeholder="Notatka...">
+                                <div class="input-group-btn">
+                                    <button id="addnote_button" class="btn btn-primary" type="submit">
+                                        <i class="glyphicon glyphicon-plus"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </form>
+                    </td>
+                </tr>
+
+                <tr id="changestatus_@item.ID" class="hide">
+                    <td colspan="8" style="border-top: none">
+                        <form asp-controller="Manager" asp-action="ChangeStatus" asp-route-id="@item.ID" method="post" class="form-inline">
+                            <label>Wybierz nowy status:</label>
+                            <select name="selectedStatus" id="status_change" asp-items="@ViewBag.Stat" class="dropdown-toggle form-control"></select>
+                            <button class="btn btn-primary" type="submit">Zmień</button>
+                        </form>
+                    </td>
+                </tr>
+            }
+
+        </table>
+    </div>
+}
+else
+{
+    <p>
+        <h3>Nie masz żadnych aktualnych ofert. <a asp-controller="Manager" asp-action="Add">Dodaj nową</a></h3>
+    </p>
+}
+<script type="text/javascript" src="~/js/ManagerIndex.js"></script>
+

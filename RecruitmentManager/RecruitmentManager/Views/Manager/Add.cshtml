@@ -1,0 +1,63 @@
+﻿@model RecruitmentManager.Models.RecrutationModel
+@using Microsoft.AspNetCore.Identity;
+@using RecruitmentManager.UtilityClasses
+@inject UtilDate utilDate
+
+
+<h4>Dodaj ofertę</h4>
+<hr />
+<div class="row">
+    <div class="col-md-6">
+        <form asp-action="Add" method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="JobTitle" class="control-label"></label>
+                <input asp-for="JobTitle" class="form-control" id="input_jobtitle" />
+                <span asp-validation-for="JobTitle" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Company" class="control-label"></label>
+                <input asp-for="Company" class="form-control" id="input_company" />
+                <span asp-validation-for="Company" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="JobDescription" class="control-label"></label>
+                <textarea rows="16" cols="8" asp-for="JobDescription" class="form-control"></textarea>
+                <span asp-validation-for="JobDescription" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Status" class="control-label"></label>
+                <select asp-for="Status" asp-items="@ViewBag.Stat" class="form-control"></select>
+                <span asp-validation-for="Status" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Source" class="control-label"></label>
+                <input asp-for="Source" class="form-control" id="input_source" />
+                <input asp-for="DirectApply" type="checkbox" id="chbox_source" /> Aplikowanie bezpośrednio do firmy <br />
+                <span asp-validation-for="Source" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="ApplicationDate" class="control-label"></label>
+                <input type="date" asp-for="ApplicationDate" class="form-control" value="@utilDate.Today()" id="input_date" />
+                <span asp-validation-for="ApplicationDate" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input hidden readonly asp-for="UserID" value="@ViewBag.Usr" />
+                <input type="submit" value="Zapisz" class="btn btn-default" id="sub_button" />
+                <span id="general_message" class="text-danger"></span>
+            </div>
+
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Wróć</a>
+</div>
+
+<script type="text/javascript" src="~/js/ManagerAddEdit.js"></script>

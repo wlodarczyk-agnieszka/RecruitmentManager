@@ -1,0 +1,36 @@
+﻿@model RecruitmentManager.ViewModels.ContactFormViewModel
+
+<h3>Formularz Kontaktowy</h3>
+<br/>
+
+    <div class="row">
+        <div class="col-md-6">
+            <form asp-controller="Home" asp-action="Contact" method="post">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div class="form-group">
+                    <label asp-for="Name" class="control-label"></label>
+                    <input asp-for="Name" class="form-control" />
+                    <span asp-validation-for="Name" class="text-danger"></span>
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="FromEmail" class="control-label"></label>
+                    <input asp-for="FromEmail" class="form-control" id="input_company" />
+                    <span asp-validation-for="FromEmail" class="text-danger"></span>
+                </div>
+                
+                <div class="form-group">
+                    <label asp-for="Subject" class="control-label"></label>
+                    <select asp-for="Subject" asp-items="@ViewBag.EmailSubject" class="form-control"></select>
+                    <span asp-validation-for="Subject" class="text-danger"></span>
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="Message" class="control-label"></label>
+                    <textarea asp-for="Message" class="form-control"></textarea>
+                    <span asp-validation-for="Message" class="text-danger"></span>
+                </div>
+                <input type="submit" value="Wyślij" class="btn btn-default"/>
+            </form>
+        </div>
+    </div>

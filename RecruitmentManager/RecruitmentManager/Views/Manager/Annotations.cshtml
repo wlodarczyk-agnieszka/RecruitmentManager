@@ -1,0 +1,32 @@
+﻿@using RecruitmentManager.UtilityClasses
+@model IEnumerable<AnnotationModel>
+@inject UtilDate utilDate
+
+<p>Adnotacje to notatki nie dotyczące konkretnej oferty, ale np firmy (np jeśli chcemy mieć na uwadze firmę, do której teraz się nie dostaliśmy, ale chcielibyśmy spróbować w przyszłości)</p>
+<p><a asp-controller="Manager" asp-action="AddAnnotation" class="btn btn-default">Dodaj</a></p>
+<hr />
+
+<div class="row">
+    <div class="col-md-6">
+
+        @if (Model.Any())
+        {
+            foreach (var item in Model)
+            {
+                <div class="panel panel-default">
+                    <div class="panel-heading"><strong>@item.Title</strong> (@utilDate.GetFormattedDate(item.Date)) 
+                        <text style="float: right"><a asp-controller="Manager" asp-action="EditAnnotation" asp-route-id="@item.ID"><span class="glyphicon glyphicon-edit" title="Edytuj"></span></a></text></div>
+                    <div class="panel-body">
+                        @item.Content
+                    </div>
+                </div>
+
+            }
+        }
+        else
+        {
+            <h3>Nie masz żadnych adnotacji. <a asp-controller="Manager" asp-action="AddAnnotation">Dodaj nową</a></h3>
+        }
+
+    </div>
+</div>

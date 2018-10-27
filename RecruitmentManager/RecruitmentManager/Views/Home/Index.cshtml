@@ -1,0 +1,19 @@
+﻿<h2>Dzień dobry!</h2>
+
+@if (!User.Identity.IsAuthenticated)
+{
+    <h3><a asp-controller="Account" asp-action="Login">Zaloguj się</a>, by rozpocząć.</h3>
+}
+
+<hr />
+<h5>Czym jest Recruitment Manager?</h5>
+<p>To aplikacja, która ma ułatwić Ci proces poszukiwania pracy. Dzięki niej nie pogubisz się w gąszczu wysłanych CV, będziesz wiedzieć dokładnie która rekrutacja na jakim jest etapie.</p>
+<p>Szczegółowe informacje znajdziesz w zakładce <a asp-controller="Home" asp-action="About">o projekcie</a>.</p>
+
+
+
+
+
+
+
+

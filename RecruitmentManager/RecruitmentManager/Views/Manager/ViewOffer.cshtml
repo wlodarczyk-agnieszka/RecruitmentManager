@@ -1,0 +1,39 @@
+﻿@using RecruitmentManager.UtilityClasses
+@inject UtilDate utilDate
+@model RecrutationModel
+
+
+<h3 style="color: #2e6da4">@Model.JobTitle (@Model.Company)</h3>
+<hr />
+<div>
+    <pre style="font-family: sans-serif; font-size: 14px">@Model.JobDescription</pre>
+</div>
+<hr />
+<p>
+    <strong>Data aplikacji:</strong> @utilDate.GetFormattedDate(Model.ApplicationDate) <br />
+    <strong>Źródło oferty:</strong> @Model.Source <br />
+    <strong>Status:</strong> @Model.Status
+</p>
+<hr />
+<h4 style="color: #2e6da4">Notatki</h4>
+@if (Model.Notes.Any())
+{
+    foreach (var item in Model.Notes)
+     {
+         <div><strong>@utilDate.GetFormattedDate(item.CreatedDate)</strong> @item.Text</div>
+    }
+}
+else
+{
+    <p>Brak notatek.</p>
+}
+
+<hr />
+<h4 style="color: #2e6da4">Historia zmian statusu</h4>
+@foreach (var stat in Model.StatusChangeses)
+{
+    <div><strong>@utilDate.GetFormattedDate(stat.ChangeDate)</strong> @stat.NewStatus</div>
+}
+
+<hr />
+<a asp-controller="Manager" asp-action="Index">Wróć</a>

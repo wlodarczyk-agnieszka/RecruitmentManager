@@ -1,0 +1,125 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Moje Rekrutacje</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="/css/bootstrap.css" />
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Comfortaa" rel="stylesheet">
+
+    <!-- jQuery library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+    <!-- Latest compiled JavaScript -->
+    <script src="js/bootstrap.js"></script>
+</head>
+<body>
+
+
+    <!-- NAVBAR -->
+    <div class="row">
+        <div class="col-sm-12">
+            <nav class="navbar navbar-inverse" style="font-family: Comfortaa">
+                <div class="container-fluid">
+                    <div class="navbar-header">
+                        <a class="navbar-brand" href="/" style="color: white">Moje Rekrutacje</a>
+                </div>
+                <ul class="nav navbar-nav navbar-right">
+                    @if (User.Identity.IsAuthenticated)
+                    {
+                        <li><a asp-area="" asp-controller="Manager" asp-action="Options"><span class="glyphicon glyphicon-cog"></span> Opcje</a></li>
+                        <li><a asp-area="" asp-controller="Account" asp-action="LogOut"><span class="glyphicon glyphicon-user"></span> Wyloguj</a></li>
+                    }
+                    else
+                    {
+                        <li><a asp-area="" asp-controller="Account" asp-action="Login"><span class="glyphicon glyphicon-user"></span> Logowanie</a></li>
+                        <li><a asp-area="" asp-controller="Account" asp-action="Register"><span class="glyphicon glyphicon-pencil"></span> Rejestracja</a></li>
+                    }
+                    <li><a asp-area="" asp-controller="Home" asp-action="Contact"><span class="glyphicon glyphicon-envelope"></span> Kontakt</a></li>
+                    <li><a asp-area="" asp-controller="Home" asp-action="About"><span class="glyphicon glyphicon-question-sign"></span> O projekcie</a></li>
+                </ul>
+            </div>
+        </nav>
+    </div>
+</div>
+
+
+
+
+<!-- LEFT PANEL & BODY -->
+
+<div class="row">
+    <div class="col-sm-1"></div>
+
+    <!-- LEFT MENU -->
+    <div class="col-sm-2">
+        @if (User.Identity.IsAuthenticated)
+        {
+            <table>
+                <tr><td><a asp-controller="Manager" asp-action="Add" class="btn btn-primary">Dodaj ofertę</a></td></tr>
+                <tr><td><hr/></td></tr>
+                <tr><td style="padding: 10px"><a asp-area="" asp-controller="Manager" asp-action="Index"><span class="glyphicon glyphicon-list-alt"></span> Menedżer</a></td></tr>
+                <tr><td style="padding: 10px"><a asp-area="" asp-controller="Manager" asp-action="Archives"><span class="glyphicon glyphicon-file"></span> Archiwum</a></td></tr>
+                <tr><td style="padding: 10px"><a asp-area="" asp-controller="Manager" asp-action="Statistics"><span class="glyphicon glyphicon-stats"></span> Statystyki</a></td></tr>
+                <tr><td style="padding: 10px"><a asp-area="" asp-controller="Manager" asp-action="Annotations"><span class="glyphicon glyphicon-pencil"></span> Adnotacje</a></td></tr>
+                <tr><td><hr/></td></tr>
+                <tr>
+                    <td>
+                        <form asp-controller="Manager" asp-action="Search" method="get" class="form-inline">
+                            <div class="input-group">
+                                <input type="text" name="text" class="form-control" placeholder="Szukaj...">
+                                <div class="input-group-btn">
+                                    <button class="btn btn-primary" type="submit">
+                                        <i class="glyphicon glyphicon-search"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </form>
+                    </td>
+                </tr>
+
+            </table>
+
+        }
+    </div>
+
+    <!-- MAIN CONTENT -->
+    <div class="col-sm-8">
+
+        @if (TempData["OK"] != null && TempData["Ok"].ToString() != "")
+        {
+            <div class="alert alert-success alert-dismissible">
+                <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                @TempData["Ok"]
+            </div>
+        }
+        @if (TempData["Error"] != null && TempData["Error"].ToString() != "")
+        {
+            <div class="alert alert-danger alert-dismissible">
+                <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                @TempData["Error"]
+            </div>
+        }
+        @if (TempData["Info"] != null && TempData["Info"].ToString() != "")
+        {
+            <div class="alert alert-info alert-dismissible">
+                <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                @TempData["Info"]
+            </div>
+        }
+
+        @RenderBody()
+
+    </div>
+
+    <div class="col-sm-1"></div>
+
+</div>
+
+
+
+</body>
+</html>

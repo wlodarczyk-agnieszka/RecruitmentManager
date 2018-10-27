@@ -1,0 +1,105 @@
+﻿@model RecruitmentManager.ViewModels.StatisticsViewModel
+
+<div class="panel panel-default">
+    <div class="panel-heading"><h4>Statystyki Twoich aplikacji</h4></div>
+    <div class="panel-body">
+
+        <h4>Aktualne</h4>
+        <hr />
+        <table class="table-condensed" style="width: 100%">
+
+            @foreach (var item in Model.Actual)
+            {
+                <tr>
+                    <td style="width: 35%">@item.Key</td>
+                    <td style="width: 5%">@item.Value</td>
+                    @{
+                        float x = 0;
+                        if (Model.Actual["Wszystkie"] > 0)
+                        {
+                            x = (float)item.Value / Model.Actual["Wszystkie"] * 100;
+                            x = (float)Math.Floor(x);
+                        }
+                        <td>
+                            <div class="progress">
+                                <div class="progress-bar" role="progressbar" aria-valuenow="@x"
+                                     aria-valuemin="0" aria-valuemax="100" style="width:@x%">
+                                    @x%
+                                </div>
+                            </div>
+                        </td>
+                    }
+
+                </tr>
+            }
+        </table>
+
+
+
+        <hr />
+        <h4>Zarchiwizowane</h4>
+        <hr />
+        <table class="table-condensed" style="width: 100%">
+            @foreach (var item in Model.Archives)
+            {
+                <tr>
+                    <td style="width: 35%">@item.Key</td>
+                    <td style="width: 5%">@item.Value</td>
+                    @{
+                        float x = 0;
+                        if (Model.Archives["Wszystkie"] > 0)
+                        {
+                            x = (float)item.Value / Model.Archives["Wszystkie"] * 100;
+                            x = (float)Math.Floor(x);
+                        }
+                       <td>
+                            <div class="progress">
+                                <div class="progress-bar" role="progressbar" aria-valuenow="@x"
+                                     aria-valuemin="0" aria-valuemax="100" style="width:@x%">
+                                    @x%
+                                </div>
+                            </div>
+                        </td>
+                    }
+
+                </tr>
+            }
+        </table>
+
+
+
+        <hr />
+        <h4>Wszystkie</h4>
+        <hr />
+
+        <table class="table-condensed" style="width: 100%">
+            @foreach (var item in Model.All)
+            {
+
+                <tr>
+                    <td style="width: 35%">@item.Key</td>
+                    <td style="width: 5%">@item.Value</td>
+                    @{
+                        float x = 0;
+                        if (Model.All["Wszystkie"] > 0)
+                        {
+                            x = (float)item.Value / Model.All["Wszystkie"] * 100;
+                            x = (float)Math.Floor(x);
+                        }
+                        <td>
+                            <div class="progress">
+                                <div class="progress-bar" role="progressbar" aria-valuenow="@x"
+                                     aria-valuemin="0" aria-valuemax="100" style="width:@x%">
+                                    @x%
+                                </div>
+                            </div>
+                        </td>
+                    }
+
+                </tr>
+            }
+        </table>
+
+
+    </div>
+</div>

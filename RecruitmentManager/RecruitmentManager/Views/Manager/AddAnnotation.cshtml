@@ -1,0 +1,33 @@
+﻿@model AnnotationModel
+    
+<h3>Dodaj adnotację</h3>
+<hr/>
+
+<div class="row">
+    <div class="col-md-4">
+        
+        <form asp-controller="Manager" asp-action="AddAnnotation" method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+            <div class="form-group">
+                <label asp-for="Title" class="control-label"></label>
+                <input asp-for="Title" class="form-control" id="input_title" />
+                <span asp-validation-for="Title" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Content" class="control-label"></label>
+                <textarea asp-for="Content" class="form-control" id="input_content"></textarea>
+                <span asp-validation-for="Content" class="text-danger"></span>
+            </div>
+
+            <input asp-for="UserID" value="@ViewBag.Usr" hidden />
+
+            <input type="submit" value="Dodaj" class="btn btn-default" id="submit_button" /><span id="general_message"></span><br />
+            <a asp-controller="Manager" asp-action="Annotations">Wróć</a>
+
+        </form>
+    </div>
+</div>
+
+<script type="text/javascript" src="~/js/AddEditAnnotation.js"></script>

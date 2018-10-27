@@ -1,0 +1,60 @@
+﻿@model RecruitmentManager.ViewModels.FileUpload
+
+<h3>Opcje</h3>
+<hr />
+<h4>Ładowanie danych z pliku</h4>
+<p>Masz swoje archiwum i chcesz je zaimportować do RM? Nie ma problemu! Poniżej instrukcja, która krok po kroku pokaże jak można to zrobić.</p>
+<br/>
+<h4>1. Przygotowanie pliku excela</h4>
+<p>Aby rozpocząć, będziesz potrzebować danych w arkuszu kalkulacyjnym (.xlsx), w formie:</p>
+<div>
+    <table class="table table-bordered">
+        <tr>
+            <td>A</td>
+            <td>B</td>
+            <td>C</td>
+            <td>D</td>
+            <td>E</td>
+            <td>F</td>
+            <td>G</td>
+        </tr>
+        <tr>
+            <td>Nazwa stanowiska</td>
+            <td>Nazwa firmy</td>
+            <td>Status (według rozpiski poniżej)</td>
+            <td>Data aplikacji (w formacie RRRR-MM-DD)</td>
+            <td>Źródło oferty</td>
+            <td>Opis stanowiska</td>
+            <td>Notatka</td>
+        </tr>
+    </table>
+</div>
+<br />
+<p>Dozwolone statusy:</p>
+<ul>
+    @foreach (var item in ViewBag.Stats)
+    {
+        <li>@item.ToString()</li>
+    }
+</ul>
+<i>Program wczytuje dane rozpoczynając od drugiego wiersza, pierwszy jest pomijany (z założenia, że jest tam nagłówek).</i><br />
+<i>Jeśli podczas importu status nie zostanie rozpoznany, automatycznie zostanie przypisany pierwszy z listy.</i><br />
+<i>Jeśli podczas importu data nie zostanie rozpoznana, automatycznie zostanie przypisana bieżąca.</i>
+
+<br/>
+<h4>2. Ładowanie pliku</h4>
+
+<div class="row">
+    <div class="col-md-6">
+        <form asp-controller="Manager" asp-action="Options" method="post" enctype="multipart/form-data" class="form-inline">
+
+            <div class="form-group">
+                <input asp-for="File" type="file" accept=".xlsx" class="form-control" />
+                <input type="submit" value="Importuj" class="btn btn-default" />
+            </div>
+            
+        </form>
+    </div>
+</div>
+<hr/>
+<p>Wróć do <a asp-controller="Manager" asp-action="Index">Menedżera</a></p>
