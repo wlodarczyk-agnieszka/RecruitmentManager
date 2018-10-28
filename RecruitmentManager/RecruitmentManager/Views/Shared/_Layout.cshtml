@@ -88,6 +88,10 @@
 
     <!-- MAIN CONTENT -->
     <div class="col-sm-8">
+        
+        <div class="panel panel-default">
+            <div class="panel-body">Uwaga! Aplikacja w wersji demonstracyjnej. Dane użytkowników mogą zostać usunięte. </div>
+        </div>
 
         @if (TempData["OK"] != null && TempData["Ok"].ToString() != "")
         {
@@ -110,6 +114,7 @@
                 @TempData["Info"]
             </div>
         }
+
 
         @RenderBody()
 
