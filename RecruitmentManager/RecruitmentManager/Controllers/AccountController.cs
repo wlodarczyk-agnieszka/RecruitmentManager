@@ -38,6 +38,11 @@ namespace RecruitmentManager.Controllers
                 {
                    return RedirectToAction("Index", "Manager");
                 }
+                else
+                {
+                    TempData["Error"] = "Logowanie nieudane. Sprawdź, czy wpisane dane są poprawne. Jeśli nie masz jeszcze konta, załóż je.";
+                    return View(userData);
+                }
             }
             else
             {
@@ -73,13 +78,19 @@ namespace RecruitmentManager.Controllers
                     await _signInManager.PasswordSignInAsync(userData.Login, userData.Password, false,
                         false);
 
-                    TempData["Info"] = $"Witaj, {userData.Login}!";
+                    TempData["Ok"] = $"Witaj, {userData.Login}!";
                     return RedirectToAction("Index", "Manager");
                 }
-
-                foreach (var error in result.Errors)
+                else
                 {
-                    ModelState.AddModelError("", error.Description);
+                    TempData["Error"] = "Rejestracja nie powiodła się.";
+
+                    foreach (var error in result.Errors)
+                    {
+                        ModelState.AddModelError("", error.Description);
+                    }
+
+                    return View(userData);
                 }
             }
 
