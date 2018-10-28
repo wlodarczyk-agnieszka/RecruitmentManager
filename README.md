@@ -2,7 +2,7 @@
 Application that helps people manage their applying for a new job process.
 The process may be long and hard to manage. This application was created to change this. 
 
-### Live demo: (https://www.mojerekrutacje.pl/)
+### Live demo: https://www.mojerekrutacje.pl/
 
 ### Status:
 In development
