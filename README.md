@@ -2,9 +2,6 @@
 Application that helps people manage their applying for a new job process.
 The process may be long and hard to manage. This application was created to change this. 
 
-### Status:
-In development
-
 ### Features:
 - Register and log in (login and password)
 - Register / login via Google or LinkedIn (temporarily disabled)
